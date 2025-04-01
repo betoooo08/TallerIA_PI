@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Sistema de Recomendación</h2>
+    <form method="get" action="{% url 'recommendation' %}">
+        <div class="mb-3">
+            <label for="prompt" class="form-label">Ingresa tu prompt de recomendación:</label>
+            <input type="text" class="form-control" id="prompt" name="prompt" placeholder="Ejemplo: Película de la segunda guerra mundial" value="{{ prompt }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Recomendar</button>
+    </form>
+
+    {% if recommended_movie %}
+    <div class="mt-4">
+        <h3>Película Recomendada:</h3>
+        <div class="card" style="width: 18rem;">
+            <img src="{{ recommended_movie.image.url }}" class="card-img-top" alt="{{ recommended_movie.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ recommended_movie.title }}</h5>
+                <p class="card-text">{{ recommended_movie.description }}</p>
+            </div>
+        </div>
+    </div>
+    {% elif prompt %}
+    <p class="mt-4">No se encontró una recomendación para el prompt ingresado.</p>
+    {% endif %}
+</div>
+{% endblock content %}
